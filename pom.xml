@@ -156,12 +156,18 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.1.41</version>
 		</dependency>
-		<!-- 映入JSON -->
+		<!-- 映入JSON 开始 -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.0-rc2</version>
+		</dependency>
+		<!-- 映入JSON 结束-->
    </dependencies>  
    <!-- 修改maven的jdk版本 -->
   <build>
