@@ -18,7 +18,7 @@ import com.codejstudio.service.UserService;
 public class UserServiceImpl implements UserService{  
     @Autowired  
     private UserDao userDao;  
-    public UserDTO selectUserById(String u_mobile) {  
+    public UserDTO selectUserById(String u_mobile) {
         return userDao.selectUserById(u_mobile);  
           
     }  

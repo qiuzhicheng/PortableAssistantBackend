@@ -128,6 +128,13 @@
             <artifactId>mybatis-spring</artifactId>  
             <version>1.2.0</version>  
         </dependency>  
+        
+        <!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
+		</dependency>
   
         <!-- mysql驱动包 -->  
         <dependency>  
