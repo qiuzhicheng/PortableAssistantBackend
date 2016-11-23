@@ -13,12 +13,13 @@ import com.codejstudio.service.dto.UserDTO;
  * @2016年11月18日
  */
 @Repository
-public interface UserDao {  
-    /**
-     * 查询 用户根据id
-     * @param userId
-     * @return
-     */
-    public UserDTO selectUserById(String u_mobile);  
+public interface UserDao extends BaseDAO {  
+    
+	/**
+	 * 根据手机号，密码查询用户信息
+	 * @param loginUerDTO
+	 * @return
+	 */
+	public UserDTO selectUser(UserDTO loginUerDTO);  
   
 }  

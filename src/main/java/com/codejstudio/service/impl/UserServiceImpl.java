@@ -1,10 +1,12 @@
 package com.codejstudio.service.impl;  
   
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.codejstudio.service.dao.UserDao;
 import com.codejstudio.service.dto.UserDTO;
+import com.codejstudio.service.util.ResultFilter;
 import com.codejstudio.service.UserService;
   
 
@@ -16,12 +18,13 @@ import com.codejstudio.service.UserService;
  */
 @Service  
 public class UserServiceImpl implements UserService{  
-    @Autowired  
-    private UserDao userDao;  
-    public UserDTO selectUserById(String u_mobile) {
-        return userDao.selectUserById(u_mobile);  
-          
-    }  
-  
+    @Resource
+    private UserDao userDao;
+
+	public UserDTO selectUser(UserDTO loginUerDTO) {
+		return userDao.selectUser(loginUerDTO);
+	}
+
+	
 }  
 

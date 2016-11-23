@@ -10,6 +10,11 @@ import com.codejstudio.service.dto.UserDTO;
  * @since  2015年9月28日  
  */  
 public interface UserService {  
-    public UserDTO selectUserById(String u_mobile);  
+	/**
+	 * 用户登录验证   根据手机号和密码
+	 * @param loginUerDTO
+	 * @return
+	 */
+	public UserDTO selectUser(UserDTO loginUerDTO);  
   
 } 

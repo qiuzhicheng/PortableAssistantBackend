@@ -12,7 +12,7 @@
         <result column="MODIFY_TIME"  property="modify_time"  />
     </resultMap>  
     <!-- 查询单条记录 -->  
-    <select id="selectUserById" parameterType="String" resultMap="BaseResultMap">  
-        SELECT * FROM pa_user WHERE U_MOBILE = #{u_mobile}  
+    <select id="selectUser" parameterType="com.codejstudio.service.dto.UserDTO" resultMap="BaseResultMap">  
+        SELECT * FROM pa_user WHERE U_MOBILE = #{u_mobile} and U_PASSWORD = #{u_password}
     </select>  
 </mapper>  
