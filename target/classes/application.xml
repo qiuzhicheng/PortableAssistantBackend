@@ -61,7 +61,6 @@
 	</bean>
 
     <!-- 自动扫描注解的bean -->  
-    <context:component-scan base-package="com.codejstudio.service" />
     <context:component-scan base-package="com.codejstudio.service.impl" />  
 </beans>
 

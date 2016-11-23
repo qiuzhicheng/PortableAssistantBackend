@@ -5,7 +5,7 @@
 <!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->  
     <resultMap id="BaseResultMap" type="com.codejstudio.service.dto.UserDTO">  
         <id column="ID" property="id" jdbcType="INTEGER" />  
-        <result column="U_USERNAME" property="u_userName" jdbcType="VARCHAR" />  
+        <result column="U_USERNAME" property="u_username" jdbcType="VARCHAR" />  
         <result column="U_PASSWORD" property="u_password" jdbcType="VARCHAR" />  
         <result column="U_MOBILE" property="u_mobile" jdbcType="VARCHAR" />  
         <result column="CREATE_TIME" property="create_time" jdbcType="DATE" />

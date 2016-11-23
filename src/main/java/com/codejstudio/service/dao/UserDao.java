@@ -1,6 +1,10 @@
 package com.codejstudio.service.dao;  
   
   
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
 import com.codejstudio.service.dto.UserDTO;
   
 /**
@@ -8,6 +12,7 @@ import com.codejstudio.service.dto.UserDTO;
  * @author codejstudio
  * @2016年11月18日
  */
+@Repository
 public interface UserDao {  
     /**
      * 查询 用户根据id

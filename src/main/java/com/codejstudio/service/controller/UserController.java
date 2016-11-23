@@ -28,6 +28,7 @@ public class UserController {
     public ModelAndView getIndex(){      
         ModelAndView mav = new ModelAndView("index");   
         UserDTO user = userService.selectUserById("2");  
+        System.out.println(user.getU_mobile()+user.getU_username());
         mav.addObject("user", user);   
         return mav;    
     }  
