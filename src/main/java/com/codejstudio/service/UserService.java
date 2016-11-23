@@ -1,6 +1,6 @@
 package com.codejstudio.service;  
   
-import com.codejstudio.dto.UserDTO;
+import com.codejstudio.service.dto.UserDTO;
   
   
 /** 
@@ -10,6 +10,6 @@ import com.codejstudio.dto.UserDTO;
  * @since  2015年9月28日  
  */  
 public interface UserService {  
-	void register(UserDTO user);  
+    public UserDTO selectUserById(String u_mobile);  
   
 } 

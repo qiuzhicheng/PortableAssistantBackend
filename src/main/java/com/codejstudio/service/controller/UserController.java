@@ -1,6 +1,4 @@
-package com.codejstudio.controller;
-import java.util.Date;
-
+package com.codejstudio.service.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,30 +8,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONObject;
-import com.codejstudio.common.safe.ResponseJSON;
-import com.codejstudio.dto.UserDTO;
+import com.codejstudio.service.dto.UserDTO;
 import com.codejstudio.service.UserService;
 
   
 /**
- * 功能概要：UserController --用户控制器
+ * 功能概要：UserController 
  * @author codejstudio
  * @2016年11月18日
  */
 @Controller  
-@RequestMapping("/user")
-public class UserController /*extends BaseController*/ {  
+public class UserController {  
     @Resource  
     private UserService userService;  
       
-    /**
-     * 测试
-     * @return
-     */
+    @RequestMapping("/modelandview")    
+    public ModelAndView getIndex(){      
+        ModelAndView mav = new ModelAndView("index");   
+        UserDTO user = userService.selectUserById("2");  
+        mav.addObject("user", user);   
+        return mav;    
+    }  
     @RequestMapping("/")    
-    public String test(){      
+    public String hello(){      
+       
         return "index";    
     } 
     /**
@@ -59,9 +59,4 @@ public class UserController /*extends BaseController*/ {
         //userService.register(userDTO);
 		return "hello"; 
     }
-    @RequestMapping("/hello")    
-    public String hello(){      
-        throw new RuntimeException("出错了！");   
-        //return "hello";    
-    } 
 }  
