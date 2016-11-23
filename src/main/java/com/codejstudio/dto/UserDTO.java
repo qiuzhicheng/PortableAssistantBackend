@@ -2,12 +2,21 @@ package com.codejstudio.dto;
 
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+//spring MVC 3.X 支持注解，在需要序列化为json输出的类上增加@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)//页面提交过来的属性在实体类上不存在：忽略未知属性（防止报错400）
 public class UserDTO {
+	@JsonIgnore
 	private Integer  id;  
     private String   u_mobile;  
     private String   u_password;  
     private String   u_username;
+    @JsonIgnore
     private Date   create_time;
+    @JsonIgnore
     private Date   modify_time;
     
 	public Integer getId() {

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
@@ -42,23 +43,23 @@ public class UserController /*extends BaseController*/ {
      * @param session
      * @return
      */
-    @RequestMapping("/register") 
+    @RequestMapping(value="/register",method = RequestMethod.POST) 
     @ResponseBody//在SpringMVC中可以在Controller的某个方法上加@ResponseBody注解，表示该方法的返回结果直接写入HTTP response body中。
-    public String register(@RequestBody JSONObject jo, HttpServletRequest req, HttpSession session){
+    public String register(@RequestBody /*JSONObject*/ UserDTO jo, HttpServletRequest req, HttpSession session){
        System.out.println("-----------userDTO-------------------------------------------------------------");
 
-        UserDTO user = new UserDTO();
+     /*   UserDTO user = new UserDTO();
         user.setU_mobile(jo.getString("mobile")); 
         user.setU_username(jo.getString("username")); 
         user.setU_password(jo.getString("password"));
         user.setCreate_time(new Date());
         user.setModify_time(new Date());
-        System.out.println(jo.getString("mobile"));
+        System.out.println(jo.getString("mobile"));*/
         //调用service
         //userService.register(userDTO);
 		return "hello"; 
     }
-    @RequestMapping("/hello.action")    
+    @RequestMapping("/hello")    
     public String hello(){      
         throw new RuntimeException("出错了！");   
         //return "hello";    

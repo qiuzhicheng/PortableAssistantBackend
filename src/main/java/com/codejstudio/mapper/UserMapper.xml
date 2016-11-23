@@ -18,7 +18,7 @@
     
      <!-- 用户注册 -->  
     <insert id="register" parameterType="com.codejstudio.dto.UserDTO">
-  			insert into pa_user(u_username, u_username,create_time ,modify_time)
-  				   values(#{u_username}, #{u_username},#{create_time}, #{modify_time})
+  			insert into pa_user(u_username, u_password,create_time ,modify_time)
+  				   values(#{u_username}, #{u_password},#{create_time}, #{modify_time})
 	</insert>
 </mapper>  
