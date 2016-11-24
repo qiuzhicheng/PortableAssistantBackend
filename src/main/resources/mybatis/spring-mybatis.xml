@@ -18,12 +18,12 @@
 	<context:component-scan base-package="com.codejstudio.service">  
       	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />   
  	</context:component-scan>  
-
+	<!-- 启动事物管理器 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<!-- 启动事物管理器 -->
+	<!-- 对@Transactional这个注解进行的驱动 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 <!-- 引入jdbc配置文件 -->
@@ -39,15 +39,10 @@
 			value="${url}?characterEncoding=UTF-8&amp;useUnicode=true" />
 		<property name="username" value="${username}" />
 		<property name="password" value="${password}" />
-
 		<property name="initialSize" value="${initialSize}"></property>
-
 		<property name="maxActive" value="${maxActive}"></property>
-
 		<property name="maxIdle" value="${maxIdle}"></property>
-
 		<property name="minIdle" value="${minIdle}"></property>
-
 		<property name="maxWait" value="${maxWait}"></property>
 	</bean>
 
@@ -64,10 +59,12 @@
 
 		<property name="mapperLocations"
 			value="classpath:com/codejstudio/service/mapper/*.xml" />
+			<!--自定义类型转换-->
 		<property name="typeAliasesPackage"
 			value="com.codejstudio.service.dto,com.codejstudio.service.util" />
 		<!-- <typeAliases> example:@Alias(user) <package name="com.dy.entity"/> 
 			<typeAlias alias="UserEntity" type="com.test.entity.User"/> </typeAliases> -->
+			<!-- 将结果集数据转换为JSONObject对象 -->
 		<property name="typeHandlersPackage"
 			value="com.codejstudio.service.typehandler" />
 	</bean>

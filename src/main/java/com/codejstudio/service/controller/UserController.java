@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.codejstudio.common.constant.Constant;
 import com.codejstudio.common.exception.ParamException;
 import com.codejstudio.common.safe.ResponseJSON;
 import com.codejstudio.common.validator.ValidatorUtils;
@@ -56,7 +55,7 @@ public class UserController extends  BaseController {
         	/* // object对象转为json
             json = ResponseJSON.toResponseJSON(dbUerDTO);*/
         	//将用户信息存入Session
-        	req.getSession().setAttribute(Constant.CONSTANT_USER, dbUerDTO);
+        	req.getSession().setAttribute(dbUerDTO.getU_mobile(), dbUerDTO);
         	//返回给客户端登录信息
         	json.put("status", 1);
         	json.put("u_mobile", dbUerDTO.getU_mobile());
