@@ -1,6 +1,13 @@
 package com.codejstudio.service.controller;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.codejstudio.common.safe.ResponseJSON;
+import com.codejstudio.service.dto.UserDTO;
 import com.codejstudio.common.exception.ParamException;
 import com.codejstudio.common.safe.ResponseJSON;
 import com.codejstudio.common.validator.ValidatorUtils;
@@ -21,11 +30,89 @@ import com.codejstudio.service.dto.UserDTO;
  * @author codejstudio
  * @2016年11月18日
  */
-@Controller  
+@Controller
 @RequestMapping("/user")
-public class UserController extends  BaseController {  
-    @Resource  
+public class UserController {  
+    
+	@Resource  
     private UserService userService;  
+	
+	/** 
+	 * 修改用户名 
+	 * @param ResponseJSON rj 给定json数据 
+	 * @return ResponseJSON resultRj 
+	 */
+       
+	@RequestMapping(value="/updateUsername",method = RequestMethod.POST) 
+    @ResponseBody
+    public ResponseJSON UpdateUserName(@RequestBody ResponseJSON rj, HttpServletRequest req, HttpServletResponse resp,HttpSession session) throws ServletException, IOException{
+//		UserDTO user =(UserDTO) session.getAttribute("Mobile");
+    	ResponseJSON resultRj=new ResponseJSON();
+    	Map map=new HashMap();
+    	String status;
+        
+    	map.put("u_mobile",rj.getString("u_mobile") );
+    	map.put("u_username",rj.getString("u_username") );
+    	
+        if(userService.UpdateUserNameByMobile(map)){
+        	status="1";
+//        	user.setU_username(rj.getString("u_username"));
+//        	session.setAttribute("user", user);
+        	resultRj.put("status", status);
+        	
+        }else
+        {
+        	status="0";
+        	resultRj.put("status", status);
+        }
+        return rj;
+            
+    } 
+	
+	/** 
+	 * 修改密码 
+	 * @param ResponseJSON rj 给定json数据 
+	 * @return ResponseJSON resultRj 
+	 */
+	 @RequestMapping(value="/updatePassword",method = RequestMethod.POST)
+	 @ResponseBody
+    public ResponseJSON UpdateUserPassword(@RequestBody ResponseJSON rj, HttpServletRequest req, HttpServletResponse resp,HttpSession session) throws ServletException, IOException{
+//		UserDTO loginUser =(UserDTO) session.getAttribute(rj.getString("u_mobile"));
+    	UserDTO resultUser = new UserDTO();
+    	ResponseJSON resultRj=new ResponseJSON();
+    	Map map=new HashMap();
+    	String status;
+        
+    	map.put("u_mobile", rj.getString("u_mobile"));
+    	map.put("newPassword", rj.getString("newPassword"));
+    	
+    	if(rj.getString("oldPassword").equals("codejstudio"))
+        {
+    		if(userService.UpdateUserPasswordByMobile(map)){
+    			status="1";
+//            	loginUser.setU_password(rj.getString("newPassword"));
+//            	session.setAttribute("user", loginUser);
+            	resultRj.put("status", status);
+    		}
+    		else {
+    			status="0";
+            	resultRj.put("status", status);
+			}
+        }
+    	else
+        {
+        	status="0";
+        	resultRj.put("status", status);
+        }
+    	
+        return resultRj;
+	}
+
+		
+		
+	
+	
+    
       
     /**
      * 用户登录
