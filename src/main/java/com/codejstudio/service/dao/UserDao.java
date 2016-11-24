@@ -40,5 +40,23 @@ public interface UserDao extends BaseDAO{
 	 * @return
 	 */
 	public UserDTO selectUser(UserDTO loginUerDTO);  
+	 /**
+     * 查询 用户根据id
+     * @param u_mobile
+     * @return
+     */
+    public UserDTO selectUserById(String u_mobile); 
+    /**
+     * 注册 用户
+     * @param user
+     * @return
+     */
+    public void register(UserDTO user);
+    /**
+     * 查询是否已存在用户
+     * @param u_mobile
+     * @return
+     */
+    public int selectUser(String u_mobile);
   
 }  

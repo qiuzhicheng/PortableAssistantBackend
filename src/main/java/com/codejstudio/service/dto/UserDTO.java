@@ -36,4 +36,8 @@ public class UserDTO extends BaseDTO {
 		this.u_username = u_username;
 	}
 
+	public String getString(String string) {
+			// TODO Auto-generated method stub
+			return string;
+		}
 }

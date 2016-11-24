@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.codejstudio.service.UserService;
+
 import com.codejstudio.service.dao.UserDao;
 import com.codejstudio.service.dto.UserDTO;
 import com.codejstudio.service.util.ResultFilter;
@@ -27,7 +27,11 @@ public class UserServiceImpl implements UserService{
     public UserDTO selectUserByMobile(UserDTO userDTO) {
         return userDao.selectUserByMobile(userDTO);  
           
-    }  
+    } 
+	public UserDTO selectUserById(String u_mobile) {
+        return userDao.selectUserById(u_mobile);  
+          
+    }   
     @Override
 	public boolean UpdateUserNameByMobile(Map map) {
 		
@@ -43,5 +47,12 @@ public class UserServiceImpl implements UserService{
 	public UserDTO selectUser(UserDTO loginUerDTO) {
 		return userDao.selectUser(loginUerDTO);
 	}
+	 public void register(UserDTO user) {
+         userDao.register(user);  
+          
+    } 
+    public int selectUser(String u_mobile){
+    	 return userDao.selectUser(u_mobile);
+    }
 }  
 

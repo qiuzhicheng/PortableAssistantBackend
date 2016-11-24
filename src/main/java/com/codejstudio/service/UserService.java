@@ -35,5 +35,7 @@ public interface UserService {
 	 * @return
 	 */
 	public UserDTO selectUser(UserDTO loginUerDTO);  
-  
+	public UserDTO selectUserById(String u_mobile); 
+	public void register(UserDTO user); 
+	public int selectUser(String u_mobile);
 } 

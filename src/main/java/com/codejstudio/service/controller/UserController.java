@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.codejstudio.common.safe.ResponseJSON;
 import com.codejstudio.service.dto.UserDTO;
 import com.codejstudio.common.exception.ParamException;
@@ -23,7 +26,7 @@ import com.codejstudio.common.safe.ResponseJSON;
 import com.codejstudio.common.validator.ValidatorUtils;
 import com.codejstudio.service.UserService;
 import com.codejstudio.service.dto.UserDTO;
-
+import com.codejstudio.service.util.RandomUtil;
   
 /**
  * 功能概要：UserController 
@@ -31,7 +34,7 @@ import com.codejstudio.service.dto.UserDTO;
  * @2016年11月18日
  */
 @Controller
-@RequestMapping("/user")
+
 public class UserController {  
     
 	@Resource  
@@ -68,7 +71,91 @@ public class UserController {
         return rj;
             
     } 
-	
+	 @RequestMapping("/verification")
+	 @ResponseBody//在SpringMVC中可以在Controller的某个方法上加@ResponseBody注解，表示该方法的返回结果直接写入HTTP response body中。
+    public ResponseJSON random(@RequestBody JSONObject jo, HttpServletRequest req, HttpSession session){      
+    	System.out.println("生成验证码");
+        String str=RandomUtil.random(); 
+        ResponseJSON json=new ResponseJSON();
+		json.put("verificationCode", str);
+        session.setAttribute("verificationCode"+jo.getString("u_mobile"), str);
+		 return json;    
+    } 
+	/**
+     * 用户注册
+     * @param jo
+     * @param req
+     * @param session
+     * @return
+     */
+    @RequestMapping(value="/register",method = RequestMethod.POST) 
+   @ResponseBody//在SpringMVC中可以在Controller的某个方法上加@ResponseBody注解，表示该方法的返回结果直接写入HTTP response body中。
+    public ResponseJSON register(@RequestBody /*JSONObject*/ UserDTO user, HttpServletRequest req, HttpSession session){
+       System.out.println("-----------userDTO-------------------------------------------------------------");
+       ResponseJSON json=new ResponseJSON();
+       /**
+        * 验证手机号是否已被注册
+        */
+       if(userService.selectUser(user.getU_mobile())==0){
+    	   
+       
+           user.setCreate_time(new Date());
+          user.setModify_time(new Date());
+           //System.out.println(jo.getString("mobile"));
+           //调用service
+           userService.register(user);
+           session.setAttribute(user.getU_password(), user);
+           json.put("u_mobile", user.getU_mobile());
+           json.put("u_username", user.getU_username());
+           json.put("status", 1);
+           return json;
+           }else{
+        	  json.put("status", 0);
+        	  json.put("error", "对不起！您的手机已被注册！");
+    	   return json;
+       }
+         
+    }
+    
+    
+    @RequestMapping(value="/register1",method = RequestMethod.POST) 
+    @ResponseBody//在SpringMVC中可以在Controller的某个方法上加@ResponseBody注解，表示该方法的返回结果直接写入HTTP response body中。
+     public ResponseJSON register(@RequestBody JSONObject jo, HttpServletRequest req, HttpSession session){
+        System.out.println("-----------userDTO-------------------------------------------------------------");
+        ResponseJSON json=new ResponseJSON();
+        /**
+         * 验证手机号是否已被注册
+         */
+        if(userService.selectUser(jo.getString("u_mobile"))==0){
+	        String str=(String)session.getAttribute("verificationCode"+jo.getString("u_mobile"));
+	        if(str.equalsIgnoreCase(jo.getString("verificationCode"))){
+	        	UserDTO user = new UserDTO();
+	        	user.setU_mobile(jo.getString("u_mobile"));
+	        	user.setU_mobile(jo.getString("u_username"));
+	        	user.setU_mobile(jo.getString("u_password"));
+	            user.setCreate_time(new Date());
+	            user.setModify_time(new Date());
+	            //System.out.println(jo.getString("mobile"));
+	            //调用service
+	            userService.register(user);
+	            session.setAttribute(user.getU_password(), user);
+	            json.put("u_mobile", user.getU_mobile());
+	            json.put("u_username", user.getU_username());
+	            json.put("status", 1);
+	            return json;
+            }else{	
+            	json.put("status", 0);
+            	json.put("error", "对不起，您的验证码有误！");
+            	return json;
+            }
+        }else{
+            json.put("status", 0);
+            json.put("error", "对不起！您的手机已被注册！");
+            return json;
+        }
+          
+    }
+ 
 	/** 
 	 * 修改密码 
 	 * @param ResponseJSON rj 给定json数据 
