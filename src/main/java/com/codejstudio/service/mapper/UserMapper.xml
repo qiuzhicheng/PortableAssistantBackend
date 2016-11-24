@@ -50,7 +50,7 @@
         ) 
     </insert>  
     <!-- 查询单条记录 -->  
-    <select id="selectUser" parameterType="String" resultType="int">  
+    <select id="ifselectUser" parameterType="String" resultType="int">  
         select COUNT(*) from pa_user where U_MOBILE = #{u_mobile}
     </select>   
 </mapper>  

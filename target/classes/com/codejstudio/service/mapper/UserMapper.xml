@@ -10,9 +10,47 @@
         <result column="U_MOBILE" property="u_mobile"  />  
         <result column="CREATE_TIME"  property="create_time"  />
         <result column="MODIFY_TIME"  property="modify_time"  />
-    </resultMap>  
+    </resultMap>
+       <!-- 注册通道查询单条记录 -->  
+    <select id="selectUserById" parameterType="String" resultMap="BaseResultMap">  
+        SELECT * FROM pa_user WHERE U_MOBILE = #{u_mobile}  
+    </select> 
+    <select id="selectUserByMobile" parameterType="map" resultMap="BaseResultMap">  
+        SELECT * FROM pa_user WHERE U_MOBILE = #{u_mobile}  
+    </select>
+    <!--通过u_mobile修改 用户名 -->
+    <update id="UpdateUserNameByMobile" parameterType="map">
+    update pa_user set U_USERNAME=#{u_username} WHERE U_MOBILE=#{u_mobile}
+    </update>
+    <!--通过u_mobile修改 密码 -->
+    <update id="UpdateUserPasswordByMobile" parameterType="map">
+    update pa_user set U_PASSWORD=#{newPassword} WHERE U_MOBILE=#{u_mobile}
+    </update> 
+    
+     
     <!-- 查询单条记录 -->  
     <select id="selectUser" parameterType="com.codejstudio.service.dto.UserDTO" resultMap="BaseResultMap">  
         SELECT * FROM pa_user WHERE U_MOBILE = #{u_mobile} and U_PASSWORD = #{u_password}
-    </select>  
+    </select> 
+    <!-- 注册通道增加单条记录 -->  
+    <insert id="register" parameterType="UserDTO" >  
+        insert into pa_user (
+        U_USERNAME,
+        U_PASSWORD,
+        U_MOBILE,
+        CREATE_TIME,
+        MODIFY_TIME
+        )
+        values (
+        #{u_username},
+    	#{u_password},
+    	#{u_mobile},
+    	#{create_time},
+    	#{modify_time}
+        ) 
+    </insert>  
+    <!-- 查询单条记录 -->  
+    <select id="ifselectUser" parameterType="String" resultType="int">  
+        select COUNT(*) from pa_user where U_MOBILE = #{u_mobile}
+    </select>   
 </mapper>  
