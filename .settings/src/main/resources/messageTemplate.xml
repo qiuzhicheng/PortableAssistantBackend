@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
+<messageTemplte>
+	<msg title="msg_register">
+		<content>尊贵的用户，您的验证码为:$$code$$。2分钟内有效，请勿泄露您的验证码。</content>
+	</msg>
+	<msg title="msg_forget_pw_">
+		<content>正在申请重置密码，您的验证码为:$$code$$。2分钟内有效，请勿泄露您的验证码。</content>
+	</msg>
+	<msg title="msg_reg_pw_">
+		<content>系统已帮您自动注册成为会员，登陆账号为注册手机号码，默认密码：$$passWord$$，请尽快登陆哥斯拉修改密码。</content>
+	</msg>
+	<msg title="msg_birthday_wish_">
+		<content>
+		$$sender$$,为您送上祝福： 
+		$$content$$ 
+		---
+		$$sendShopUrl$$
+		</content>
+	</msg>
+</messageTemplte>

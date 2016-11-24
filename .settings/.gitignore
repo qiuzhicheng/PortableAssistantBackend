@@ -1,0 +1,6 @@
+/target/
+/.classpath
+/.project
+/target/m2e-wtp
+/target/maven-status
+/target/classes
